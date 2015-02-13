@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Readability' => array($vendorDir . '/fivefilters/php-readability'),
+    'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
 );

@@ -2,6 +2,7 @@
     "require": {
        "embed/embed": "1.8.3",
 	   "tedivm/stash": "0.12.*",
-	   "fivefilters/php-readability": "1.0"
+	   "fivefilters/php-readability": "1.0",
+	   "ezyang/htmlpurifier": "4.6.0"
     }
 }

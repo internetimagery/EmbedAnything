@@ -7,7 +7,7 @@ define('EMBEDLY_KEY',null); // Embedly key
 
 // Cache file
 define('CACHE_DIR',__DIR__.'/cache'); // Cache directory
-define('CACHE_TIME', 1); // Cache expiry time. Items older than this will be regenerated.
+define('CACHE_TIME', 3); // Cache expiry time. Items older than this will be regenerated.
 
 // Create our Cache pool
 $driver = new Stash\Driver\FileSystem();
@@ -28,6 +28,7 @@ function EA_Embed($url){
 	if($item->isMiss()){
 		$item->lock();
 		$data = EA_Request($url);
+		$data['content'] = ($data && $data['type'] == 'link')? EA_Readability($data['html'], $url):'';
 		$item->set($data);
 	}
 	return $data;
@@ -39,6 +40,7 @@ function EA_CacheMaintenance(){
 	$item = $POOL->getItem('CacheFlush');
 	$last_flush = $item->get(); // Get stored date
 	// If we have previously stored the value.
+	echo 'Time till next flush: '.(($last_flush + (CACHE_TIME*10)) - time())."\n<br/>";
 	if($last_flush){
 		// Check if we have passed 10 times the expire time. Then flush the cache.
 		if((($last_flush + (CACHE_TIME*10)) - time()) < 0){ $POOL->flush(); }
@@ -53,6 +55,29 @@ function EA_CacheMaintenance(){
 function EA_EmptyCache(){
 	global $POOL;
 	$POOL->flush();
+}
+
+// Basic HTML cleaning for output... if you want to do that... yaknow
+function EA_PurifyHtml($html){
+	$config = HTMLPurifier_Config::createDefault();
+	$purifier = new HTMLPurifier($config);
+	return $purifier->purify($html);
+}
+
+// Grab visible content from the page. ie: if a blog, grab the blog text.
+function EA_Readability($html, $url){
+	// If we've got Tidy, let's clean up input.
+	if (function_exists('tidy_parse_string')) {
+		echo 'TIDY EXISTS!';
+	    $tidy = tidy_parse_string($html, array(), 'UTF8');
+	    $tidy->cleanRepair();
+	    $html = $tidy->value;
+	}
+	// Create Readability
+	$readability = new Readability($html, $url);
+	if($readability->init()){
+		return EA_PurifyHtml($readability->getContent()->innerHTML);}
+	return '';
 }
 
 // Get embed information from URL
@@ -100,7 +125,7 @@ if($info){
 	$data['providerIcons'] = $info->providerIcons; //All provider icons found in the page
 	$data['providerIcon'] = $info->providerIcon; //The icon choosen as main icon
 
-	$data['html'] = $info->request->getContent(); // The raw HTML from the page
+	$data['html'] = $info->request->getContent(); // The raw HTML from the page. Don't output this by itself.
 	return $data;
 }
 return false;
