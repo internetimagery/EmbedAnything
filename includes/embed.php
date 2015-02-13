@@ -9,6 +9,7 @@ define('EMBEDLY_KEY',null); // Embedly key
 define('CACHE_DIR',__DIR__.'/cache'); // Cache directory
 define('CACHE_TIME', 1); // Cache expiry time. Items older than this will be regenerated.
 
+// Create our Cache pool
 $driver = new Stash\Driver\FileSystem();
 $driver->setOptions(array(
 	"path"		=>	CACHE_DIR
@@ -18,13 +19,18 @@ $POOL = new Stash\Pool($driver);
 
 // Embed the URL
 function EA_Embed($url){
-
-// Create Cache pool
-
-
-
-
-	EA_Request($url);
+	global $POOL;
+	// Maintain the Cache
+	EA_CacheMaintenance();
+	// Retrieve data from the cache if it exists otherwise create it.
+	$item = $POOL->getItem($url);
+	$data = $item->get(Stash\Invalidation::OLD);
+	if($item->isMiss()){
+		$item->lock();
+		$data = "get code";
+		$item->set($data);
+	}
+	return $data;
 }
 
 // Maintain the cache. Flush any extraneous items ten times the duration of a regular cache expiry.
