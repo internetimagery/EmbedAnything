@@ -39,9 +39,3 @@ function EA_SimpleBox($url){
 function EA_IMG($url){
 	return "<img src='$url' />";
 }
-
-
-$html = '
-<div class="flex-video">
-<iframe width="420" height="315" src="//www.youtube.com/embed/aiBt44rrslw" frameborder="0" allowfullscreen></iframe>
-</div>';
