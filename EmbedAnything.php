@@ -1,6 +1,10 @@
 <?php
 // Easily Embed anything into the page.
+require_once(__DIR__."/vendor/vendor/autoload.php");
 
+// Embed functionality.
+require_once(__DIR__.'/includes/data.php');
+require_once(__DIR__."/includes/formHTML.php");
 
 $wgExtensionCredits['parserhook'][] = array(
    'path' => __FILE__,
@@ -28,15 +32,9 @@ function EA_Setup( Parser $parser ) {
 function EA_Tag( $input, array $args, Parser $parser, PPFrame $frame ) {
 	$url = EA_CheckURL($input)? $input :( isset($args['url']) && EA_CheckURL($args['urls'])? $args['urls'] :'' );
 	if($url){
-		echo "SUCCESS: ".$url;
+		$html = EA_SimpleBox($url);
 	}
-	$html = '';
-	return '';
-return array(
-	$html,
-	'noparse' => true,
-	'isHTML' => true
-	);
+	return array( $html, 'noparse' => true, 'isHTML' => true );
 }
 
 function EA_CheckURL($url){
