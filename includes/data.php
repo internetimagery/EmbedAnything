@@ -6,8 +6,9 @@ define('EA_FACEBOOK_KEY',null); // Facebook key
 define('EA_EMBEDLY_KEY',null); // Embedly key
 
 // Default Images and Icons if missing
-define('EA_DEFAULT_IMG' , 'extensions/EmbedAnything/includes/missing_image.png');
-define('EA_DEFAULT_ICON' , null);
+$image_directory = 'extensions/EmbedAnything/includes';
+define('EA_DEFAULT_IMG'		, "$image_directory/missing_image.png");
+define('EA_DEFAULT_ICON' 	, "$image_directory/missing_icon.png");
 
 // Cache file
 define('EA_CACHE_DIR',__DIR__.'/cache'); // Cache directory

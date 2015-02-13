@@ -7,7 +7,7 @@ require_once('includes/data.php');
 require_once("includes/formHTML.php");
 
 // Flush Cache
-//EA_EmptyCache();
+EA_EmptyCache();
 
 // Test request
 //var_dump(EA_Request('http://internetimagery.com'));
