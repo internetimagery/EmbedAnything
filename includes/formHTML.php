@@ -1,10 +1,6 @@
 <?php
 // Grab embed data and form some nice HTML with it
 
-// Default image when nothing can be found.
-define('DEFAULT_IMG' , null);
-define('DEFAULT_ICON' , null);
-
 // Generate a simple box without descriptions or whatnot.
 function EA_SimpleBox($url){
 	$data = EA_Embed($url);
@@ -13,9 +9,9 @@ function EA_SimpleBox($url){
 	echo '<pre>'.$data['image']."\n";
 	print_r($data['images']);
 	if($data){
-		$html['title']	= $data['title']? $data['title'] : ''; // Title of the media
+		$html['title']	= $data['title']; // Title of the media
 		$html['link']	= $data['url']; // URL
-		$html['icon'] = $data['providerIcon']? EA_IMG($data['providerIcon']) : EA_IMG(DEFAULT_ICON);
+		$html['icon'] = $data['providerIcon'];
 		echo $html['icon'];
 		switch($data['type']){
 			case 'audio':

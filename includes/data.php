@@ -5,6 +5,10 @@ define('SOUNDCLOUD_KEY',null); // Soundcloud key
 define('FACEBOOK_KEY',null); // Facebook key
 define('EMBEDLY_KEY',null); // Embedly key
 
+// Default Images and Icons if missing
+define('DEFAULT_IMG' , null);
+define('DEFAULT_ICON' , null);
+
 // Cache file
 define('CACHE_DIR',__DIR__.'/cache'); // Cache directory
 define('CACHE_TIME', 1 * 60 * 60 * 24 * 7); // Cache expiry time. Items older than this will be regenerated.
@@ -107,7 +111,7 @@ if($info){
 	$data['type'] = $info->type; //The page type (link, video, image, rich)
 
 	$data['images'] = $info->images; //List of all images found in the page
-	$data['image'] = $info->image; //The image choosen as main image
+	$data['image'] = $info->image?$info->image:DEFAULT_IMG; //The image choosen as main image
 	$data['imageWidth'] = $info->imageWidth; //The width of the main image
 	$data['imageHeight'] = $info->imageHeight; //The height of the main image
 
@@ -122,7 +126,7 @@ if($info){
 	$data['providerName'] = $info->providerName; //The provider name of the page (youtube, twitter, instagram, etc)
 	$data['providerUrl'] = $info->providerUrl; //The provider url
 	$data['providerIcons'] = $info->providerIcons; //All provider icons found in the page
-	$data['providerIcon'] = $info->providerIcon; //The icon choosen as main icon
+	$data['providerIcon'] = $info->providerIcon?$info->providerIcon:DEFAULT_ICON; //The icon choosen as main icon
 
 	$data['content'] = EA_Readability($info->request->getContent(), $url); // The content as read by Readability
 	return $data;
