@@ -24,10 +24,11 @@ $wgHooks['ParserFirstCallInit'][] = 'EA_Setup'; #grab text from parser
 // Set up hooks
 function EA_Setup( Parser $parser ) {
 	$parser->setHook( 'embed', 'EA_Tag' );
+
 	return true;
 }
 
-// Import HTML with tags
+// Tags. Use <embed>url</embed> or {{#tag:embed|url}}
 function EA_Tag( $input, array $args, Parser $parser, PPFrame $frame ) {
 	$url = '';
 	if(isset($args['url'])){ $url = count(parse_url($args['url']))>1?$args['url']:''; unset($args['url']); }

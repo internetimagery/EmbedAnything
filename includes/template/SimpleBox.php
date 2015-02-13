@@ -11,14 +11,14 @@
 				break;
 			case 'photo':
 			case 'image':
-				'<img src="'.$data['image'].'" />';
+				'<img style="margin:auto;" src="'.$data['image'].'" />';
 				break;
 			case 'link':
 				echo $data['image']==EA_DEFAULT_IMG?'<span class="embed-snippet">'.$data['description'].'</span>':'<img src="'.$data['image'].'" />';
 			default:
 				break;
 			} ?>
-	</div>
+	</div><?php if(!isset($options['meta']) || (isset($options['meta'])&&$options['meta'])){ ?>
 	<div class="embed-meta panel">
 		<span class="embed-icon">
 			<img src="<?php echo $data['providerIcon']; ?>" height=30px width=30px/>
@@ -26,5 +26,5 @@
 		<span class="embed-link">
 			<a href="<?php echo $data['url']; ?>" title="<?php echo $data['title']; ?>"><?php echo $data['title']; ?></a>
 		</span>
-	</div>
+	</div><?php } ?>
 </div>
