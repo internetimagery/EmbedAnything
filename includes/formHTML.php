@@ -41,6 +41,7 @@ function EA_SimpleBox($url){
 	return SimpleBox($html);
 }
 
+
 // Put URL in image tags
 function EA_IMG($url){
 	return "<img src='$url' />";
