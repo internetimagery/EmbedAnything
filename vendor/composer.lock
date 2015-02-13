@@ -4,24 +4,25 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e4524d09d2e9181bcb2ff7db1c9b0f36",
+    "hash": "72dc48e49b65039f8986e26378fafe29",
     "packages": [
         {
             "name": "embed/embed",
-            "version": "v1.8.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oscarotero/Embed.git",
-                "reference": "0b2425a9f31e6ac700868a31a0ec81d814553762"
+                "reference": "ed22f7eb908911af5c92e2ae8b71bd2f02b7f7a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oscarotero/Embed/zipball/0b2425a9f31e6ac700868a31a0ec81d814553762",
-                "reference": "0b2425a9f31e6ac700868a31a0ec81d814553762",
+                "url": "https://api.github.com/repos/oscarotero/Embed/zipball/ed22f7eb908911af5c92e2ae8b71bd2f02b7f7a8",
+                "reference": "ed22f7eb908911af5c92e2ae8b71bd2f02b7f7a8",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "ext-curl": "*",
+                "php": ">=5.4.0"
             },
             "type": "library",
             "autoload": {
@@ -50,7 +51,7 @@
                 "opengraph",
                 "twitter cards"
             ],
-            "time": "2015-01-22 12:01:19"
+            "time": "2015-01-31 19:47:17"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -200,7 +201,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "embed/embed": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

@@ -1,23 +1,24 @@
 [
     {
         "name": "embed/embed",
-        "version": "v1.8.3",
-        "version_normalized": "1.8.3.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/oscarotero/Embed.git",
-            "reference": "0b2425a9f31e6ac700868a31a0ec81d814553762"
+            "reference": "ed22f7eb908911af5c92e2ae8b71bd2f02b7f7a8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/oscarotero/Embed/zipball/0b2425a9f31e6ac700868a31a0ec81d814553762",
-            "reference": "0b2425a9f31e6ac700868a31a0ec81d814553762",
+            "url": "https://api.github.com/repos/oscarotero/Embed/zipball/ed22f7eb908911af5c92e2ae8b71bd2f02b7f7a8",
+            "reference": "ed22f7eb908911af5c92e2ae8b71bd2f02b7f7a8",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.0"
+            "ext-curl": "*",
+            "php": ">=5.4.0"
         },
-        "time": "2015-01-22 12:01:19",
+        "time": "2015-01-31 19:47:17",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
