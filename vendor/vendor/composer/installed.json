@@ -48,6 +48,54 @@
         ]
     },
     {
+        "name": "fivefilters/php-readability",
+        "version": "v1.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "http://code.fivefilters.org/php-readability.git",
+            "reference": "4f56053bd1fd540969b6cfb7f799a31c7352faee"
+        },
+        "require": {
+            "php": ">=5.2"
+        },
+        "time": "2013-04-17 13:51:09",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Readability": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Keyvan Minoukadeh",
+                "email": "keyvan@keyvan.net",
+                "homepage": "http://keyvan.net",
+                "role": "Developer (ported original JS code to PHP)"
+            },
+            {
+                "name": "Arc90",
+                "homepage": "http://arc90.com",
+                "role": "Developer (original JS version)"
+            }
+        ],
+        "description": "Automatic article extraction from HTML",
+        "homepage": "http://code.fivefilters.org/php-readability/",
+        "keywords": [
+            "article",
+            "article extraction",
+            "content",
+            "content extraction",
+            "extraction",
+            "html"
+        ]
+    },
+    {
         "name": "tedivm/stash",
         "version": "v0.12.3",
         "version_normalized": "0.12.3.0",

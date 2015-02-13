@@ -27,6 +27,7 @@ function EA_Embed($url){
 	$data = $item->get(Stash\Invalidation::OLD);
 	if($item->isMiss()){
 		$item->lock();
+		$data = EA_Request($url);
 		$data = "get code";
 		$item->set($data);
 	}

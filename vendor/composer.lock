@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "601a813f08f1976991a3c1b13d7f108d",
+    "hash": "2a97d89ee475e3706be89e85bb7f3bcd",
     "packages": [
         {
             "name": "embed/embed",
@@ -51,6 +51,52 @@
                 "twitter cards"
             ],
             "time": "2015-01-22 12:01:19"
+        },
+        {
+            "name": "fivefilters/php-readability",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "http://code.fivefilters.org/php-readability.git",
+                "reference": "4f56053bd1fd540969b6cfb7f799a31c7352faee"
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Readability": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Keyvan Minoukadeh",
+                    "email": "keyvan@keyvan.net",
+                    "homepage": "http://keyvan.net",
+                    "role": "Developer (ported original JS code to PHP)"
+                },
+                {
+                    "name": "Arc90",
+                    "homepage": "http://arc90.com",
+                    "role": "Developer (original JS version)"
+                }
+            ],
+            "description": "Automatic article extraction from HTML",
+            "homepage": "http://code.fivefilters.org/php-readability/",
+            "keywords": [
+                "article",
+                "article extraction",
+                "content",
+                "content extraction",
+                "extraction",
+                "html"
+            ],
+            "time": "2013-04-17 13:51:09"
         },
         {
             "name": "tedivm/stash",
