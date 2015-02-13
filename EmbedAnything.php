@@ -6,13 +6,13 @@ $wgExtensionCredits['parserhook'][] = array(
    'path' => __FILE__,
    'name' => 'EmbedAnything',
    'description' => 'Embed anything onto a page easily.',
-   'version' => 1,
+   'version' => 1.0,
    'author' => 'Jason Dixon',
    'url' => 'https://github.com/internetimagery/EmbedAnything',
 );
 
 // Register i18n.
-//$wgExtensionMessagesFiles['EmbedAnything'] = __DIR__ . '/EmbedAnything.i18n.php';
+$wgExtensionMessagesFiles['EmbedAnything'] = __DIR__ . '/EmbedAnything.i18n.php';
 
 // Register hooks.
 $wgHooks['ParserFirstCallInit'][] = 'EA_Setup'; #grab text from parser
@@ -27,8 +27,11 @@ function EA_Setup( Parser $parser ) {
 // Import HTML with tags
 function EA_Tag( $input, array $args, Parser $parser, PPFrame $frame ) {
 	$url = EA_CheckURL($input)? $input :( isset($args['url']) && EA_CheckURL($args['urls'])? $args['urls'] :'' );
-	echo $url;
+	if($url){
+		echo "SUCCESS: ".$url;
+	}
 	$html = '';
+	return '';
 return array(
 	$html,
 	'noparse' => true,
@@ -37,5 +40,5 @@ return array(
 }
 
 function EA_CheckURL($url){
-	return parse_url($url)? $url : false;
+	return count(parse_url($url)) > 1? $url : false;
 }
