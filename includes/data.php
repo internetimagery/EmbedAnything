@@ -88,8 +88,8 @@ function EA_Request($url){
 $config = array(
     'adapter' => array(
         'config' => array(
-        	'minImageHeight'	=> 300,
-        	'minImageWidth'		=> 300,
+        	'minImageHeight'	=> 250,
+        	'minImageWidth'		=> 250,
             'getBiggerImage' 	=> true,
             'getBiggerIcon' 	=> true,
             'facebookKey' 		=> FACEBOOK_KEY,
@@ -106,7 +106,7 @@ $info = Embed\Embed::create($url, $config);
 $data = array();
 if($info){
 	$data['title'] = $info->title; //The page title
-	$data['descrption'] = $info->description; //The page description
+	$data['description'] = $info->description; //The page description
 	$data['url'] = $info->url; //The canonical url
 	$data['type'] = $info->type; //The page type (link, video, image, rich)
 

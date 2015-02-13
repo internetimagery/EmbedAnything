@@ -4,7 +4,7 @@
 function SimpleBox($data){
 	ob_start(); ?>
 <div class="embed-wrapper">
-	<div class="flex-video embed-item">
+	<div class="flex-video embed-item <?php echo $data['type']; ?>">
 	<?php echo $data['primary']; ?>
 	</div>
 	<div class="embed-text">

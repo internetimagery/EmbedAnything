@@ -1,5 +1,6 @@
 <?php
 // Grab embed data and form some nice HTML with it
+require_once(__DIR__.'/template/SimpleBox.php');
 
 // Generate a simple box without descriptions or whatnot.
 function EA_SimpleBox($url){
@@ -10,6 +11,7 @@ function EA_SimpleBox($url){
 		$html['title']	= $data['title']; // Title of the media
 		$html['link']	= $data['url']; // URL
 		$html['icon'] = $data['providerIcon'];
+		$html['type'] = $data['type'];
 		switch($data['type']){
 			case 'audio':
 				echo 'audio';
@@ -23,7 +25,7 @@ function EA_SimpleBox($url){
 				$html['primary'] = $data['code']? $data['code'] : EA_IMG($data['image']);
 				break;
 			case 'link':
-				$html['primary'] = $data['image']? EA_IMG($data['image']) : $data['description'];
+				$html['primary'] = $data['image']? EA_IMG($data['image']) : '<span class="embed-quote">'.$data['description'].'</span>';
 				break;
 			default:
 				echo "couldn't figure it out...";
@@ -31,8 +33,12 @@ function EA_SimpleBox($url){
 		}
 	// Or else if we don't have anything...
 	} else {
-		echo "ERROR: Please check your URL works correctly: $url";
+		$html['title']	 = $url;
+		$html['link']	 = $url;
+		$html['icon'] 	 = EA_IMG(DEFAULT_ICON);
+		$html['primary'] = EA_IMG(DEFAULT_IMG);
 	}
+	return SimpleBox($html);
 }
 
 // Put URL in image tags
