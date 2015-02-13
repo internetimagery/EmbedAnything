@@ -1,5 +1,5 @@
 <!-- SimpleBox Embed -->
-<div class="embed-wrapper">
+<div class="embed-wrapper" <?php echo isset($options['width'])?'style="width:'.$options['width'].'px;"':''; ?> >
 	<div class="embed-media-wrapper <?php echo $data['type']; ?>">
 	<?php switch($data['type']){
 			case 'audio':
