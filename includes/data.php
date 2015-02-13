@@ -23,12 +23,11 @@ function EA_Embed($url){
 	// Maintain the Cache
 	EA_CacheMaintenance();
 	// Retrieve data from the cache if it exists otherwise create it.
-	$item = $POOL->getItem($url);
+	$item = $POOL->getItem(md5($url));
 	$data = $item->get(Stash\Invalidation::OLD);
 	if($item->isMiss()){
 		$item->lock();
 		$data = EA_Request($url);
-		$data = "get code";
 		$item->set($data);
 	}
 	return $data;
@@ -100,6 +99,8 @@ if($info){
 	$data['providerUrl'] = $info->providerUrl; //The provider url
 	$data['providerIcons'] = $info->providerIcons; //All provider icons found in the page
 	$data['providerIcon'] = $info->providerIcon; //The icon choosen as main icon
+
+	$data['html'] = $info->request->getContent(); // The raw HTML from the page
 	return $data;
 }
 return false;
