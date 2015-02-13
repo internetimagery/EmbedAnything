@@ -29,11 +29,9 @@ function EA_Setup( Parser $parser ) {
 
 // Import HTML with tags
 function EA_Tag( $input, array $args, Parser $parser, PPFrame $frame ) {
-	$url = count(parse_url($input)) > 1?
-				$input
-				:( isset($args['url']) && count(parse_url($args['url'])) > 1?
-					$args['url']
-					:'');
+	$url = '';
+	if(isset($args['url'])){ $url = count(parse_url($args['url']))>1?$args['url']:''; unset($args['url']); }
+	$url = count(parse_url($input)) > 1? $input : $url;
 	$html = 'WARNING: Not a valid URL.';
 	if($url){
 		$html = EA_GetTemplate($url, $args);
