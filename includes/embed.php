@@ -1,16 +1,17 @@
 <?php
 
 // Optional parameters
-define('SOUNDCLOUD',null); // Soundcloud key
-define('FACEBOOK',null); // Facebook key
-define('EMBEDLY',null); // Embedly key
+define('SOUNDCLOUD_KEY',null); // Soundcloud key
+define('FACEBOOK_KEY',null); // Facebook key
+define('EMBEDLY_KEY',null); // Embedly key
 
 // Cache file
-define('CACHE',__DIR__.'/cache'); // Cache directory
+define('CACHE_DIR',__DIR__.'/cache'); // Cache directory
+define('CACHE_TIME', 1); // Cache expiry time. Items older than this will be regenerated.
 
 $driver = new Stash\Driver\FileSystem();
 $driver->setOptions(array(
-	"path"		=>	CACHE
+	"path"		=>	CACHE_DIR
 	));
 $POOL = new Stash\Pool($driver);
 
@@ -26,6 +27,23 @@ function EA_Embed($url){
 	EA_Request($url);
 }
 
+// Maintain the cache. Flush any extraneous items ten times the duration of a regular cache expiry.
+function EA_CacheMaintenance(){
+	global $POOL;
+	$item = $POOL->getItem('CacheFlush');
+	$last_flush = $item->get(); // Get stored date
+	// If we have previously stored the value.
+	if($last_flush){
+		// Check if we have passed 10 times the expire time. Then flush the cache.
+		if((($last_flush + (CACHE_TIME*10)) - time()) < 0){ $POOL->flush(); }
+	// If the value hasn't been stored yet.
+	} else {
+		$item->lock();
+		$item->set(time());
+	}
+}
+
+// Clean out the Cache. Maintenance function.
 function EA_EmptyCache(){
 	global $POOL;
 	$POOL->flush();
@@ -40,13 +58,13 @@ $config = array(
         'config' => array(
             'getBiggerImage' => true,
             'getBiggerIcon' => true,
-            'facebookKey' => FACEBOOK,
-            'soundcloudKey' => SOUNDCLOUD,
+            'facebookKey' => FACEBOOK_KEY,
+            'soundcloudKey' => SOUNDCLOUD_KEY,
         )
     ),
     'providers' => array(
     	'oembed' => array(
-    		'embedlyKey' => EMBEDLY
+    		'embedlyKey' => EMBEDLY_KEY
     	)
     )
 );
