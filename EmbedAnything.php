@@ -20,7 +20,6 @@ $wgExtensionMessagesFiles['EmbedAnything'] = __DIR__ . '/EmbedAnything.i18n.php'
 
 // Register hooks.
 $wgHooks['ParserFirstCallInit'][] = 'EA_Setup'; #grab text from parser
-//$wgHooks['ParserAfterTidy'][] = 'NoEmbedDecode'; # put it onto the page
 
 // Set up hooks
 function EA_Setup( Parser $parser ) {
@@ -30,13 +29,14 @@ function EA_Setup( Parser $parser ) {
 
 // Import HTML with tags
 function EA_Tag( $input, array $args, Parser $parser, PPFrame $frame ) {
-	$url = EA_CheckURL($input)? $input :( isset($args['url']) && EA_CheckURL($args['urls'])? $args['urls'] :'' );
+	$url = count(parse_url($input)) > 1?
+				$input
+				:( isset($args['url']) && count(parse_url($args['url'])) > 1?
+					$args['url']
+					:'');
+	$html = 'WARNING: Not a valid URL.';
 	if($url){
-		$html = EA_SimpleBox($url);
+		$html = EA_GetTemplate($url, $args);
 	}
 	return array( $html, 'noparse' => true, 'isHTML' => true );
-}
-
-function EA_CheckURL($url){
-	return count(parse_url($url)) > 1? $url : false;
 }

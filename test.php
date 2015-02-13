@@ -31,4 +31,4 @@ require_once("includes/formHTML.php");
 //echo EA_SimpleBox('http://yourlisten.com/electronicmusic/turbo-suit-coogi-wolf');
 //echo EA_SimpleBox('http://www.jango.com/stations/263448187/tunein?gcid=1&l=0');
 //echo EA_SimpleBox('http://isbndb.com/book/atlas_of_human_anatomy_for_the_artist');
-echo EA_SimpleBox('http://www.amazon.co.uk/Institute-Actuaries-Principles-Annuities-Assurances/dp/1178603857/ref=sr_1_1?ie=UTF8&qid=1423843292&sr=8-1&keywords=iof+life');
+//echo EA_SimpleBox('http://www.amazon.co.uk/Institute-Actuaries-Principles-Annuities-Assurances/dp/1178603857/ref=sr_1_1?ie=UTF8&qid=1423843292&sr=8-1&keywords=iof+life');
