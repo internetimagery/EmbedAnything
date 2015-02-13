@@ -30,6 +30,6 @@ function EA_GetTemplate($url, $options){
 			include(EA_TEMPLATE_DIR."/$theme.php");
 			return ob_get_clean();
 		// Or else if we don't have anything...
-		} return $url;
+		} return "<a href='$url'>$url</a>";
 	} return "WARNING: No templates can be found!";
 }
