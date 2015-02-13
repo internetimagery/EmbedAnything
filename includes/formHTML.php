@@ -6,28 +6,24 @@ function EA_SimpleBox($url){
 	$data = EA_Embed($url);
 	// Check we have something
 	// Sort data out. Primary = main image / video whatever. Url = url. Icon = icon etc.
-	echo '<pre>'.$data['image']."\n";
-	print_r($data['images']);
 	if($data){
 		$html['title']	= $data['title']; // Title of the media
 		$html['link']	= $data['url']; // URL
 		$html['icon'] = $data['providerIcon'];
-		echo $html['icon'];
 		switch($data['type']){
 			case 'audio':
 				echo 'audio';
 				break;
 			case 'image':
 			case 'photo':
-				$html['primary'] = $data['image']? EA_IMG($data['image']) : EA_IMG(DEFAULT_IMG);
+				$html['primary'] = EA_IMG($data['image']);
 				break;
 			case 'video':
 			case 'rich':
-				$html['primary'] = $data['code']? $data['code'] :
-					($data['images']? EA_IMG($data['images'][0]) : EA_IMG(DEFAULT_IMG) );
+				$html['primary'] = $data['code']? $data['code'] : EA_IMG($data['image']);
 				break;
 			case 'link':
-				$html['primary'] = $data['image']? EA_IMG($data['image']) : EA_IMG(DEFAULT_IMG);
+				$html['primary'] = $data['image']? EA_IMG($data['image']) : $data['description'];
 				break;
 			default:
 				echo "couldn't figure it out...";
@@ -39,6 +35,7 @@ function EA_SimpleBox($url){
 	}
 }
 
+// Put URL in image tags
 function EA_IMG($url){
 	return "<img src='$url' />";
 }

@@ -1,0 +1,2 @@
+<?php
+// Simple Box template
