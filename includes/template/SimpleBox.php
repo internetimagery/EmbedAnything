@@ -1,6 +1,6 @@
 <!-- SimpleBox Embed -->
-<div class="embed-wrapper" <?php echo isset($options['width'])?'style="width:'.$options['width'].'px;"':''; ?> >
-	<div class="embed-media-wrapper <?php echo $data['type']; ?>">
+<div class="embed-wrapper" <?php echo 'style="'; echo isset($options['width'])?'width:'.$options['width'].'px;"':'"'; ?>>
+	<div class="embed-media-wrapper <?php echo $data['type']=='video'?'flex-video ':''; echo $data['type'].' '.strtolower($data['providerName']); ?>" >
 	<?php switch($data['type']){
 			case 'audio':
 				// What do I do with audio? :s
@@ -19,8 +19,10 @@
 				break;
 			} ?>
 	</div>
-	<div class="embed-link-wrapper">
-		<img class="embed-icon" src="<?php echo $data['providerIcon']; ?>" />
+	<div class="embed-meta panel">
+		<span class="embed-icon">
+			<img src="<?php echo $data['providerIcon']; ?>" height=30px width=30px/>
+		</span>
 		<span class="embed-link">
 			<a href="<?php echo $data['url']; ?>" title="<?php echo $data['title']; ?>"><?php echo $data['title']; ?></a>
 		</span>

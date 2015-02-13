@@ -97,6 +97,7 @@ function EA_Request($url){
 	    ),
 	    'providers' => array(
 	    	'oembed' => array(
+	    	    'parameters' => array(),
 	    		'embedlyKey' => EA_EMBEDLY_KEY
 	    	)
 	    )
