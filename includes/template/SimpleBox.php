@@ -11,10 +11,10 @@
 				break;
 			case 'photo':
 			case 'image':
-				'<img style="margin:auto;" src="'.$data['image'].'" />';
+				'<a src="'.$data['url'].'"><img style="margin:auto;" src="'.$data['image'].'" /></a>';
 				break;
 			case 'link':
-				echo $data['image']==EA_DEFAULT_IMG?'<span class="embed-snippet">'.$data['description'].'</span>':'<img style="margin:auto;" src="'.$data['image'].'" />';
+				echo $data['image']==EA_DEFAULT_IMG?'<span class="embed-snippet">'.$data['description'].'</span>':'<a src="'.$data['url'].'"><img style="margin:auto;" src="'.$data['image'].'" /></a>';
 			default:
 				break;
 			} ?>
