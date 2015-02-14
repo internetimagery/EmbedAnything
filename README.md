@@ -6,11 +6,15 @@ Mediawiki extension to embed media into a page
 ```
 <embed>URL</embed>
 ```
+
 OR
+
 ```
 <embed url=URL></embed>
 ```
+
 OR
+
 ```
 {{#tag:embed|URL}}
 ```
