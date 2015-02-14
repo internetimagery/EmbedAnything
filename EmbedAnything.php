@@ -30,6 +30,7 @@ function EA_Setup( Parser $parser ) {
 
 // Tags. Use <embed>url</embed> or {{#tag:embed|url}}
 function EA_Tag( $input, array $args, Parser $parser, PPFrame $frame ) {
+	if($input && substr($input, 0,1) == '[' && substr($input, -1) == ']'){ $input = reset(explode(' ',substr($input, 1, -1))); }
 	$url = '';
 	if(isset($args['url'])){ $url = count(parse_url($args['url']))>1?$args['url']:''; unset($args['url']); }
 	$url = count(parse_url($input)) > 1? $input : $url;
