@@ -1,6 +1,6 @@
 <?php
 // Easily Embed anything into the page.
-require_once(__DIR__."/vendor/vendor/autoload.php");
+require_once(__DIR__."/vendor/autoload.php");
 
 // Embed functionality.
 require_once(__DIR__.'/includes/data.php');
