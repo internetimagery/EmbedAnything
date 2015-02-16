@@ -30,16 +30,15 @@ function EA_Setup( Parser $parser ) {
 
 // Tags. Use <embed>url</embed> or {{#tag:embed|url}}
 function EA_Tag( $input, array $args, Parser $parser, PPFrame $frame ) {
-	$url_check = "/^\[?\s*(https?:\/\/[^\s\]\|]+).*$/";
+	$url_check = "/^\[?\s*(https?:\/\/[^\s\]\|<]+).*$/";
 	preg_match($url_check, $input, $formed_input);
 	$url = isset($formed_input[1])? $formed_input[1] : '';
 	if(isset($args['url'])){
 		preg_match($url_check, $input, $formed_url);
 		$url = isset($formed_url[1])? $formed_url[1] : '';
 	}
-	$html = 'WARNING: Not a valid URL.';
 	if($url){
-		$html = EA_GetTemplate($url, $args);
+		return array( EA_GetTemplate($url, $args), 'noparse' => true, 'isHTML' => true );
 	}
-	return array( $html, 'noparse' => true, 'isHTML' => true );
+	return "'''WARNING:''' Not a valid URL.";
 }
