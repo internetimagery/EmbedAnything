@@ -30,7 +30,7 @@ function EA_Setup( Parser $parser ) {
 
 // Tags. Use <embed>url</embed> or {{#tag:embed|url}}
 function EA_Tag( $input, array $args, Parser $parser, PPFrame $frame ) {
-	$url_check = "/^\[?\s*(https?:\/\/[^\s\]\|<]+).*$/";
+	$url_check = "/^\[?\s*(https?:\/\/[^\s\]\|<>]+).*$/";
 	preg_match($url_check, $input, $formed_input);
 	$url = isset($formed_input[1])? $formed_input[1] : '';
 	if(isset($args['url'])){
