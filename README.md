@@ -39,7 +39,7 @@ $data and $options.
 
 There are a few conguration options thrown around the include files:
 
-###data.php
+###includes/data.php
 
 ```php
 define('EA_SOUNDCLOUD_KEY',null); // Soundcloud key
@@ -56,7 +56,7 @@ define('EA_CACHE_DIR',__DIR__.'/cache'); // Cache directory
 define('EA_CACHE_TIME', 1 * 60 * 60 * 24 * 7); // Cache expiry time. Items older than this will be regenerated.
 ```
 
-###formHtml.php
+###includes/formHtml.php
 
 ```php
 // Set the default template. The file name without php
