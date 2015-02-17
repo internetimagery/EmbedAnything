@@ -5,6 +5,7 @@ require_once(__DIR__."/vendor/autoload.php");
 // Embed functionality.
 require_once(__DIR__.'/includes/data.php');
 require_once(__DIR__."/includes/formHTML.php");
+require_once(__DIR__."/includes/localizePage.php");
 
 $wgExtensionCredits['parserhook'][] = array(
    'path' => __FILE__,

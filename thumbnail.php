@@ -6,7 +6,12 @@ require_once('includes/localizePage.php');
 
 switch(true){
 	case isset($_GET['url']):
-		echo "url!";
+		$item = $POOL->getItem($_GET['url']);
+		if($data = $item->get()){
+			var_dump($data);
+		} else {
+			echo "ERROR: No Data Found.";
+		}
 		break;
 	case isset($_GET['thumb']):
 		echo "thunb!";

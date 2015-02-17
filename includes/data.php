@@ -130,7 +130,7 @@ function EA_Request($url){
 		$data['providerIcon'] = $info->providerIcon?$info->providerIcon:EA_DEFAULT_ICON; //The icon choosen as main icon
 
 		$data['content'] = EA_Readability($info->request->getContent(), $url); // The content as read by Readability
-		$data['raw_html'] = $info->request->getContent();
+		$data['raw_html'] = EA_LocalizePage($info->url, $info->request->getContent());
 		return $data;
 	}
 	return false;
