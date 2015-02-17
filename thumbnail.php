@@ -8,7 +8,7 @@ switch(true){
 	case isset($_GET['url']):
 		$item = $POOL->getItem($_GET['url']);
 		if($data = $item->get()){
-			var_dump($data);
+			echo $data['raw_html'];
 		} else {
 			echo "ERROR: No Data Found.";
 		}

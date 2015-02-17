@@ -10,8 +10,7 @@ function EA_thumbnail(frame, image) {
 function EA_loadImage(element, location){
     html2canvas(element, {
     	"logging"	: true,
-    	"proxy"		: "html2canvasproxy.php",
-   // 	"proxy"		: "proxy.php",
+    	"proxy"		: "includes/html2canvasproxy.php",
         "onrendered": function( canvas ) {
         	var img = new Image();
             img.onload = function() {
