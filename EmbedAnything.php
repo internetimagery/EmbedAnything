@@ -23,7 +23,20 @@ $wgExtensionMessagesFiles['EmbedAnything'] = __DIR__ . '/EmbedAnything.i18n.php'
 
 // Register hooks.
 $wgHooks['ParserFirstCallInit'][] = 'EA_Setup'; #grab text from parser
-$wgHooks['BeforePageDisplay'][] = 'EA_load_javascript';
+//$wgHooks['BeforePageDisplay'][] = 'EA_load_javascript';
+
+$wgHooks['ParserBeforeTidy'][] = 'EA_Head_Js';
+
+function EA_Head_Js(&$parser, &$text){
+$parser->mOutput->addHeadItem(
+'<script src="https://raw.githubusercontent.com/internetimagery/EmbedAnything/master/includes/html2canvas.js" type="text/javascript"></script>'
+  );
+$parser->mOutput->addHeadItem(
+'<script src="https://raw.githubusercontent.com/internetimagery/EmbedAnything/master/includes/screengrab.js" type="text/javascript"></script>'
+  );
+
+  return true;
+}
 
 // Load extra Javascript
 $wgResourceModules['ext.embedanything'] = array(

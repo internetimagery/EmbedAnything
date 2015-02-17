@@ -1,5 +1,4 @@
 // Load up iframe stuff
-alert("whyyy");
 function EA_thumbnail(frame, image) {
 	EA_loadImage(
 		frame.document.getElementsByTagName("body")[0],
@@ -11,7 +10,7 @@ function EA_thumbnail(frame, image) {
 function EA_loadImage(element, location){
     html2canvas(element, {
     	"logging"	: true,
-    	"proxy"		: "includes/html2canvasproxy.php",
+    	"proxy"		: "extensions/EmbedAnything/includes/html2canvasproxy.php",
         "onrendered": function( canvas ) {
         	var img = new Image();
             img.onload = function() {
