@@ -23,11 +23,28 @@ $wgExtensionMessagesFiles['EmbedAnything'] = __DIR__ . '/EmbedAnything.i18n.php'
 
 // Register hooks.
 $wgHooks['ParserFirstCallInit'][] = 'EA_Setup'; #grab text from parser
+$wgHooks['BeforePageDisplay'][] = 'EA_load_javascript';
 
-// Set up hooks
+// Load extra Javascript
+$wgResourceModules['ext.embedanything'] = array(
+	'scripts'	=> array(
+		'includes/html2canvas.js',
+		'includes/screengrab.js'
+	),
+	'localBasePath'	=> __DIR__,
+	'remoteExtPath'	=> "EmbedAnything",
+	'position'		=> 'top'
+);
+
+// Load up our Javascript.
+function EA_load_javascript( &$out, $skin = false){
+        $out->addModules( 'ext.embedanything' );
+        return true;
+}
+
+// Set up hook
 function EA_Setup( Parser $parser ) {
 	$parser->setHook( 'embed', 'EA_Tag' );
-
 	return true;
 }
 
