@@ -10,12 +10,12 @@ require_once(__DIR__."/includes/thumbTemplate.php");
 
 
 $wgExtensionCredits['parserhook'][] = array(
-   'path' => __FILE__,
-   'name' => 'EmbedAnything',
-   'description' => 'Embed anything onto a page easily.',
-   'version' => 1.0,
-   'author' => 'Jason Dixon',
-   'url' => 'https://github.com/internetimagery/EmbedAnything',
+	'path' => __FILE__,
+	'name' => 'EmbedAnything',
+	'description' => 'Embed anything onto a page easily.',
+	'version' => 1.0,
+	'author' => 'Jason Dixon',
+	'url' => 'https://github.com/internetimagery/EmbedAnything',
 );
 
 // Register i18n.
@@ -38,8 +38,8 @@ $wgResourceModules['ext.embedanything'] = array(
 
 // Load up our Javascript.
 function EA_load_javascript( &$out, $skin = false){
-        $out->addModules( 'ext.embedanything' );
-        return true;
+	$out->addModules( 'ext.embedanything' );
+	return true;
 }
 
 // Set up hook
