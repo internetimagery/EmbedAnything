@@ -10,7 +10,7 @@ switch(true){
 		if($data = $item->get()){
 			echo $data['raw_html'];
 		} else {
-			echo "ERROR: No Data Found.";
+			echo "<h1>ERROR: No Data Found.</h1>";
 		}
 		break;
 	case isset($_GET['thumb']):

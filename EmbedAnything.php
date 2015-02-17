@@ -28,13 +28,10 @@ $wgHooks['ParserFirstCallInit'][] = 'EA_Setup'; #grab text from parser
 $wgHooks['ParserBeforeTidy'][] = 'EA_Head_Js';
 
 function EA_Head_Js(&$parser, &$text){
-$parser->mOutput->addHeadItem(
-'<script src="https://raw.githubusercontent.com/internetimagery/EmbedAnything/master/includes/html2canvas.js" type="text/javascript"></script>'
+$parser->mOutput->addHeadItem('
+<script src="extensions/EmbedAnything/includes/html2canvas.js" type="text/javascript"></script>
+<script src="extensions/EmbedAnything/includes/screengrab.js" type="text/javascript"></script>'
   );
-$parser->mOutput->addHeadItem(
-'<script src="https://raw.githubusercontent.com/internetimagery/EmbedAnything/master/includes/screengrab.js" type="text/javascript"></script>'
-  );
-
   return true;
 }
 
@@ -67,7 +64,7 @@ function EA_Tag( $input, array $args, Parser $parser, PPFrame $frame ) {
 	preg_match($url_check, $input, $formed_input);
 	$url = isset($formed_input[1])? $formed_input[1] : '';
 	if(isset($args['url'])){
-		preg_match($url_check, $input, $formed_url);
+		preg_match($url_check, $args['url'], $formed_url);
 		$url = isset($formed_url[1])? $formed_url[1] : '';
 	}
 	if($url){

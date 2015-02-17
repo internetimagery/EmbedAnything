@@ -134,6 +134,7 @@ function EA_Request($url){
 
 		$data['content'] = EA_Readability($info->request->getContent(), $url); // The content as read by Readability
 		$data['raw_html'] = EA_LocalizePage($info->url, $info->request->getContent()); // Raw HTML prepped for thumbnail
+		$data['raw_thumb'] = ''; // Thumbnail file
 		$data['thumbnail'] = EA_genThumbnail($info->url); // Code to generate thumbnail.
 		return $data;
 	}
