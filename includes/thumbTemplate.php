@@ -20,6 +20,7 @@ function EA_genThumbnail($url){
 			"
 		>
 	</iframe>
+	<button onclick="EA_cacheImage('thing')" >CLICK ME</button>
 </div>
 <div id="<?php echo $thumb; ?>"></div><?php
 	$output = ob_get_clean();

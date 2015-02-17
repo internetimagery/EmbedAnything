@@ -31,8 +31,8 @@ $wgResourceModules['ext.embedanything'] = array(
 		'includes/html2canvas.js',
 		'includes/screengrab.js'
 	),
-	'localBasePath'	=> __DIR__,
-	'remoteExtPath'	=> "EmbedAnything",
+	'localBasePath'	=> dirname( __FILE__ ),
+	'remoteExtPath'	=> basename( dirname( __FILE__ ) ),
 	'position'		=> 'top'
 );
 

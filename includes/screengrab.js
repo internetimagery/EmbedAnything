@@ -1,4 +1,5 @@
 // Load up iframe stuff
+alert("whyyy");
 function EA_thumbnail(frame, image) {
 	EA_loadImage(
 		frame.document.getElementsByTagName("body")[0],
