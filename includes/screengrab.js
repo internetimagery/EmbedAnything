@@ -1,6 +1,6 @@
 // Load up iframe stuff
 function EA_LoadThumb(target){
-	target.onerror = null;
+	target.setAttribute('onerror', '');
 	var wrapper = document.createElement('div');
 	wrapper.setAttribute("overflow", "hidden");
 	wrapper.setAttribute("position", "relative");
@@ -21,7 +21,7 @@ function EA_LoadThumb(target){
 function EA_loadImage(element, img){
     html2canvas(element, {
     	"logging"	: true,
-    	"proxy"		: "html2canvasproxy.php",
+    	"proxy"		: EA_inc_path()+"/html2canvasproxy.php",
    // 	"proxy"		: "proxy.php",
         "onrendered": function( canvas ) {
             img.onerror = function() {

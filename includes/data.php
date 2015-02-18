@@ -135,8 +135,9 @@ function EA_Request($url){
 
 		$data['content'] = EA_Readability($info->request->getContent(), $url); // The content as read by Readability
 		$data['raw_data_do_not_use_in_template'] = EA_LocalizePage($info->url, $info->request->getContent()); // Raw HTML prepped for thumbnail
+		global $wgCanonicalServer, $wgExtensionAssetsPath;#, $wgResourceModules;
 		$data['thumbnail'] =
-'<img class="web-thumb" onerror="EA_LoadThumb(this);" src="extensions/EmbedAnything/thumbnail.php?data='.EA_formKey($info->url).'" />';
+'<img class="web-thumb" onerror="EA_LoadThumb(this);" src="'.$wgExtensionAssetsPath.'/EmbedAnything/thumbnail.php?data='.EA_formKey($url).'" />';
 // Code to generate thumbnail.
 		return $data;
 	}

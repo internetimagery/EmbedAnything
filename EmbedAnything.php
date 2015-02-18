@@ -27,9 +27,11 @@ $wgHooks['ParserFirstCallInit'][] = 'EA_Setup'; #grab text from parser
 $wgHooks['ParserBeforeTidy'][] = 'EA_Head_Js';
 
 function EA_Head_Js(&$parser, &$text){
+global $wgExtensionAssetsPath;
 $parser->mOutput->addHeadItem('
-<script src="http://localhost/wik/extensions/EmbedAnything/includes/html2canvas.js" type="text/javascript"></script>
-<script src="http://localhost/wik/extensions/EmbedAnything/includes/screengrab.js" type="text/javascript"></script>'
+<script>function EA_inc_path(){ return "'.$wgExtensionAssetsPath.'/EmbedAnything/includes"; }</script>
+<script src="'.$wgExtensionAssetsPath.'/EmbedAnything/includes/html2canvas.js" type="text/javascript"></script>
+<script src="'.$wgExtensionAssetsPath.'/EmbedAnything/includes/screengrab.js" type="text/javascript"></script>'
   );
   return true;
 }
