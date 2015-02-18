@@ -43,7 +43,8 @@ function EA_loadImage(element, img, url){
             img.src = img_data;
             EA_cacheImage(img_data, url); // Send completed thumbnail
 			},
-        "height": 800
+        "height": 800,
+        "background": "#fff"
      //   "allowTaint" : true
         });
 }
