@@ -33,7 +33,6 @@ function EA_loadImage(element, img){
                 }
             };
             img.src = canvas.toDataURL("image/png");
-            img.width = 600;
             //EA_cacheImage(encodeURIComponent(img));
 			},
         "height": 800

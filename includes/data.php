@@ -86,6 +86,10 @@ function EA_Readability($html, $url){
 	return '';
 }
 
+function EA_FormImage($url, $class, $extra=''){
+	return "<img src='$url' class='$class' $extra />";
+}
+
 // Get embed information from URL
 function EA_Request($url){
 	// Set some basic options to get the best information.
@@ -116,7 +120,8 @@ function EA_Request($url){
 		$data['type'] = $info->type; //The page type (link, video, image, rich)
 
 		$data['images'] = $info->images; //List of all images found in the page
-		$data['image'] = $info->image?$info->image:EA_DEFAULT_IMG; //The image choosen as main image
+		$data['image'] = $info->image?EA_FormImage($info->image,'main-image'):''; //The image choosen
+		$data['defaultImage'] = EA_FormImage(EA_DEFAULT_IMG, 'main-image'); // Image to use if nothing else
 		$data['imageWidth'] = $info->imageWidth; //The width of the main image
 		$data['imageHeight'] = $info->imageHeight; //The height of the main image
 
@@ -135,9 +140,9 @@ function EA_Request($url){
 
 		$data['content'] = EA_Readability($info->request->getContent(), $url); // The content as read by Readability
 		$data['raw_data_do_not_use_in_template'] = EA_LocalizePage($info->url, $info->request->getContent()); // Raw HTML prepped for thumbnail
-		global $wgCanonicalServer, $wgExtensionAssetsPath;#, $wgResourceModules;
-		$data['thumbnail'] =
-'<img class="web-thumb" onerror="EA_LoadThumb(this);" src="'.$wgExtensionAssetsPath.'/EmbedAnything/thumbnail.php?data='.EA_formKey($url).'" />';
+		global $wgExtensionAssetsPath;
+		$thumb_url = $wgExtensionAssetsPath.'/EmbedAnything/thumbnail.php?data='.EA_formKey($url);
+		$data['thumb'] = EA_FormImage($thumb_url, 'web-thumb', 'onerror="EA_LoadThumb(this);"');
 // Code to generate thumbnail.
 		return $data;
 	}

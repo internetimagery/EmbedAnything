@@ -7,14 +7,14 @@
 				break;
 			case 'rich':
 			case 'video':
-				echo $data['code']?$data['code']:'<img src="'.$data['image'].'" />';
+				echo $data['code']?$data['code']:($data['image']?$data['image']:$data['thumb']);
 				break;
 			case 'photo':
 			case 'image':
-				'<a src="'.$data['url'].'"><img style="margin:auto;" src="'.$data['image'].'" /></a>';
+				'<a src="'.$data['url'].'">'.$data['image'].'</a>';
 				break;
 			case 'link':
-				echo $data['image']==EA_DEFAULT_IMG?'<span class="embed-snippet">'.$data['description'].'</span>':'<a src="'.$data['url'].'"><img style="margin:auto;" src="'.$data['image'].'" /></a>';
+				echo '<a href="'.$data['url'].'">'.($data['image']? $data['image']: $data['thumb']).'</a>';
 			default:
 				break;
 			} ?>
