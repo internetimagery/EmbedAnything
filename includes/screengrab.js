@@ -5,7 +5,6 @@ var ajax={send:function(a){if("object"==typeof a){a.async=a.async||!0,a.dataType
 
 // Load up iframe stuff
 function EA_LoadThumb(target){
-	alert("image error");
 	target.setAttribute('onerror', '');
 	var wrapper = document.createElement('div');
 	wrapper.setAttribute("overflow", "hidden");
