@@ -6,6 +6,8 @@ var ajax={send:function(a){if("object"==typeof a){a.async=a.async||!0,a.dataType
 // Load up iframe stuff
 function EA_LoadThumb(target){
 	target.setAttribute('onerror', '');
+	var php = target.src; // Images intended target
+	target.src = EA_ext_path()+"/includes/loading.gif";
 	var wrapper = document.createElement('div');
 	wrapper.setAttribute("overflow", "hidden");
 	wrapper.setAttribute("position", "relative");
@@ -14,7 +16,6 @@ function EA_LoadThumb(target){
 	frame.setAttribute("style",'position: absolute;top:0px;left:4000px;width:1200px;height:800px;');
 	frame.setAttribute("id",'testing');
 	frame = wrapper.appendChild(frame);
-	var php = target.src;
 	frame.src = php+"&html=true"; //images original url
 	frame.onload = function (e){
 		var iframeDocument = frame.contentDocument || frame.contentWindow.document;
@@ -40,7 +41,7 @@ function EA_loadImage(element, img, url){
             };
             var img_data = canvas.toDataURL("image/png");
             img.src = img_data;
-            EA_cacheImage(img_data, url, img); // Send completed thumbnail
+            EA_cacheImage(img_data, url); // Send completed thumbnail
 			},
         "height": 800
      //   "allowTaint" : true
@@ -48,7 +49,7 @@ function EA_loadImage(element, img, url){
 }
 
 // Save our computed image off for caching.
-function EA_cacheImage(data, url, img){
+function EA_cacheImage(data, url){
     ajax.send({
         url: url,
         data: { data : encodeURIComponent(data)},
