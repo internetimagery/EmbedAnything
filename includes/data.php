@@ -15,7 +15,7 @@ function EA_default_images(){
 
 // Cache file
 define('EA_CACHE_DIR',__DIR__.'/cache'); // Cache directory
-define('EA_CACHE_TIME', 1 * 60 * 60 * 24 * 7); // Cache expiry time. Items older than this will be regenerated.
+define('EA_CACHE_TIME', 1 * 60 * 60 * 24 * 7 * 2); // Cache expiry time. Items older than this will be regenerated.
 
 // Create our Cache pool
 $driver = new Stash\Driver\FileSystem();
@@ -46,15 +46,15 @@ function EA_Embed($url){
 	return $data;
 }
 
-// Maintain the cache. Flush any extraneous items ten times the duration of a regular cache expiry.
+// Maintain the cache. Flush any extraneous items five times the duration of a regular cache expiry.
 function EA_CacheMaintenance(){
 	global $POOL;
 	$item = $POOL->getItem('CacheFlush');
 	$last_flush = $item->get(); // Get stored date
 	// If we have previously stored the value.
 	if($last_flush){
-		// Check if we have passed 10 times the expire time. Then flush the cache.
-		if((($last_flush + (EA_CACHE_TIME*10)) - time()) < 0){ EA_EmptyCache(); }
+		// Check if we have passed 5 times the expire time. Then flush the cache.
+		if((($last_flush + (EA_CACHE_TIME*5)) - time()) < 0){ EA_EmptyCache(); }
 	// If the value hasn't been stored yet.
 	} else {
 		$item->lock();
