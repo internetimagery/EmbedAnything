@@ -40,7 +40,7 @@ function EA_Embed($url){
 	if($item->isMiss()){
 		$item->lock();
 		$data = EA_Request($url);
-		$item->set($data);
+		$item->set($data, EA_CACHE_TIME);
 	}
 	return $data;
 }
@@ -148,7 +148,9 @@ function EA_Request($url){
 				); //The icon choosen as main icon
 
 		$data['content'] = EA_Readability($info->request->getContent(), $url); // The content as read by Readability
-		$data['raw_data_do_not_use_in_template'] = EA_LocalizePage($info->url, $info->request->getContent()); // Raw HTML prepped for thumbnail
+		$data['raw_data_do_not_use_in_template']['html'] = EA_LocalizePage($info->url, $info->request->getContent()); // Raw HTML prepped for thumbnail
+		$data['raw_data_do_not_use_in_template']['thumb'] = '';
+
 		global $wgExtensionAssetsPath;
 		$thumb_url = $wgExtensionAssetsPath.'/EmbedAnything/thumbnail.php?data='.EA_formKey($url);
 		$data['thumb'] = EA_FormImage($thumb_url, 'web-thumb', 'onerror="EA_LoadThumb(this);"');
