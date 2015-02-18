@@ -150,7 +150,7 @@ function EA_Request($url){
 			EA_FormImage(
 				($info->providerIcon?$info->providerIcon:$default['ico']),
 				'icon',
-				'height="30px" width="30px"'
+				'height="20px" width="20px"'
 				); //The icon choosen as main icon
 
 		$data['content'] = EA_Readability($info->request->getContent(), $url); // The content as read by Readability
