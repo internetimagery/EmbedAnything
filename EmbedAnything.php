@@ -6,7 +6,6 @@ require_once(__DIR__."/vendor/autoload.php");
 require_once(__DIR__.'/includes/data.php');
 require_once(__DIR__."/includes/formHTML.php");
 require_once(__DIR__."/includes/localizePage.php");
-require_once(__DIR__."/includes/thumbTemplate.php");
 
 
 $wgExtensionCredits['parserhook'][] = array(
@@ -29,12 +28,12 @@ $wgHooks['ParserBeforeTidy'][] = 'EA_Head_Js';
 
 function EA_Head_Js(&$parser, &$text){
 $parser->mOutput->addHeadItem('
-<script src="extensions/EmbedAnything/includes/html2canvas.js" type="text/javascript"></script>
-<script src="extensions/EmbedAnything/includes/screengrab.js" type="text/javascript"></script>'
+<script src="http://localhost/wik/extensions/EmbedAnything/includes/html2canvas.js" type="text/javascript"></script>
+<script src="http://localhost/wik/extensions/EmbedAnything/includes/screengrab.js" type="text/javascript"></script>'
   );
   return true;
 }
-
+/*
 // Load extra Javascript
 $wgResourceModules['ext.embedanything'] = array(
 	'scripts'	=> array(
@@ -50,7 +49,7 @@ $wgResourceModules['ext.embedanything'] = array(
 function EA_load_javascript( &$out, $skin = false){
 	$out->addModules( 'ext.embedanything' );
 	return true;
-}
+}*/
 
 // Set up hook
 function EA_Setup( Parser $parser ) {

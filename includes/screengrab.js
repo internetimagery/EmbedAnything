@@ -1,22 +1,29 @@
 // Load up iframe stuff
-function EA_thumbnail(frame, image) {
-	EA_loadImage(
-		frame.document.getElementsByTagName("body")[0],
-		document.getElementById(image)
-		);
+function EA_LoadThumb(target){
+	target.onerror = null;
+	var wrapper = document.createElement('div');
+	wrapper.setAttribute("overflow", "hidden");
+	wrapper.setAttribute("position", "relative");
+	wrapper = target.parentNode.appendChild(wrapper);
+	var frame = document.createElement("iframe");
+	frame.setAttribute("style",'position: absolute;top:0px;left:4000px;width:1200px;height:800px;');
+	frame.setAttribute("id",'testing');
+	frame = wrapper.appendChild(frame);
+	frame.src = target.src; //images oiginal url
+	frame.onload = function (e){
+		var iframeDocument = frame.contentDocument || frame.contentWindow.document;
+		var iframe_body = iframeDocument.getElementsByTagName('body')[0];
+		EA_loadImage(iframe_body, target);
 	}
+}
 
 // Load an image off the element, place it in location
-function EA_loadImage(element, location){
+function EA_loadImage(element, img){
     html2canvas(element, {
     	"logging"	: true,
-    	"proxy"		: "extensions/EmbedAnything/includes/html2canvasproxy.php",
+    	"proxy"		: "html2canvasproxy.php",
+   // 	"proxy"		: "proxy.php",
         "onrendered": function( canvas ) {
-        	var img = new Image();
-            img.onload = function() {
-            	img.onload = null;
-                location.appendChild(img);
-                };
             img.onerror = function() {
             	img.onerror = null;
                 if(window.console.log) {
@@ -26,10 +33,10 @@ function EA_loadImage(element, location){
                 }
             };
             img.src = canvas.toDataURL("image/png");
-            img.width = 300;
+            img.width = 600;
             //EA_cacheImage(encodeURIComponent(img));
 			},
-        "height": 800,
+        "height": 800
      //   "allowTaint" : true
         });
 }

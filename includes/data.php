@@ -28,6 +28,7 @@ function EA_formKey($key){
 // Embed the URL
 function EA_Embed($url){
 	global $POOL;
+//	$url = substr($url, -1) == '/'? substr($url, 0, -1) : $url;
 	// Maintain the Cache
 	EA_CacheMaintenance();
 	// Retrieve data from the cache if it exists otherwise create it.
@@ -133,9 +134,10 @@ function EA_Request($url){
 		$data['providerIcon'] = $info->providerIcon?$info->providerIcon:EA_DEFAULT_ICON; //The icon choosen as main icon
 
 		$data['content'] = EA_Readability($info->request->getContent(), $url); // The content as read by Readability
-		$data['raw_html'] = EA_LocalizePage($info->url, $info->request->getContent()); // Raw HTML prepped for thumbnail
-		$data['raw_thumb'] = ''; // Thumbnail file
-		$data['thumbnail'] = EA_genThumbnail($info->url); // Code to generate thumbnail.
+		$data['raw_data_do_not_use_in_template'] = EA_LocalizePage($info->url, $info->request->getContent()); // Raw HTML prepped for thumbnail
+		$data['thumbnail'] =
+'<img class="web-thumb" onerror="EA_LoadThumb(this);" src="extensions/EmbedAnything/thumbnail.php?data='.EA_formKey($info->url).'" />';
+// Code to generate thumbnail.
 		return $data;
 	}
 	return false;

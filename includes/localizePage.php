@@ -2,7 +2,9 @@
 function EA_LocalizePage($url, $html, $debug=false){
 	// enable user error handling
 	libxml_use_internal_errors(true);
-	if($page = DOMDocument::loadHTML($html)){
+	$page = new DOMDocument();
+	$page->loadHTML($html);
+	if($page){
 		print_r( $debug ? libxml_get_errors() : '' );
 		libxml_clear_errors();
 		// Check we have a HEAD section
