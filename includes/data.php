@@ -54,7 +54,7 @@ function EA_CacheMaintenance(){
 	// If we have previously stored the value.
 	if($last_flush){
 		// Check if we have passed 10 times the expire time. Then flush the cache.
-		if((($last_flush + (EA_CACHE_TIME*10)) - time()) < 0){ $POOL->flush(); }
+		if((($last_flush + (EA_CACHE_TIME*10)) - time()) < 0){ EA_EmptyCache(); }
 	// If the value hasn't been stored yet.
 	} else {
 		$item->lock();
@@ -65,6 +65,11 @@ function EA_CacheMaintenance(){
 // Clean out the Cache. Maintenance function.
 function EA_EmptyCache(){
 	global $POOL;
+	$img_path = realpath(__DIR__.'/images');
+	// Clean out image cache
+	if(is_readable($img_path)){
+//		unlink($img_path);
+	}
 	$POOL->flush();
 }
 

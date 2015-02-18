@@ -31,7 +31,7 @@ global $wgExtensionAssetsPath, $wgCanonicalServer;
 $parser->mOutput->addHeadItem('
 <script>function EA_ext_path(){ return "'.$wgCanonicalServer.$wgExtensionAssetsPath.'/EmbedAnything"; }</script>
 <script src="'.$wgExtensionAssetsPath.'/EmbedAnything/includes/html2canvas.min.js" type="text/javascript"></script>
-<script src="'.$wgExtensionAssetsPath.'/EmbedAnything/includes/screengrab.js" type="text/javascript"></script>'
+<script src="'.$wgExtensionAssetsPath.'/EmbedAnything/includes/screengrab.min.js" type="text/javascript"></script>'
   );
   return true;
 }
