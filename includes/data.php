@@ -6,9 +6,12 @@ define('EA_FACEBOOK_KEY',null); // Facebook key
 define('EA_EMBEDLY_KEY',null); // Embedly key
 
 // Default Images and Icons if missing
-$image_directory = 'extensions/EmbedAnything/includes';
-define('EA_DEFAULT_IMG'		, "$image_directory/missing_image.png");
-define('EA_DEFAULT_ICON' 	, "$image_directory/missing_icon.png");
+function EA_default_images(){
+	global $wgExtensionAssetsPath;
+	$img['img'] = "$wgExtensionAssetsPath/EmbedAnything/includes/missing_image.png";
+	$img['ico'] = "$wgExtensionAssetsPath/EmbedAnything/includes/missing_icon.png";
+	return $img;
+}
 
 // Cache file
 define('EA_CACHE_DIR',__DIR__.'/cache'); // Cache directory
@@ -114,6 +117,7 @@ function EA_Request($url){
 	$info = Embed\Embed::create($url, $config);
 	$data = array();
 	if($info){
+		$default = EA_default_images();
 		$data['title'] = $info->title; //The page title
 		$data['description'] = $info->description; //The page description
 		$data['url'] = $info->url; //The canonical url
@@ -121,7 +125,7 @@ function EA_Request($url){
 
 		$data['images'] = $info->images; //List of all images found in the page
 		$data['image'] = $info->image?EA_FormImage($info->image,'main-image'):''; //The image choosen
-		$data['defaultImage'] = EA_FormImage(EA_DEFAULT_IMG, 'main-image'); // Image to use if nothing else
+		$data['defaultImage'] = EA_FormImage($default['img'], 'main-image'); // Image to use if nothing else
 		$data['imageWidth'] = $info->imageWidth; //The width of the main image
 		$data['imageHeight'] = $info->imageHeight; //The height of the main image
 
@@ -136,7 +140,12 @@ function EA_Request($url){
 		$data['providerName'] = $info->providerName; //The provider name of the page (youtube, twitter, instagram, etc)
 		$data['providerUrl'] = $info->providerUrl; //The provider url
 		$data['providerIcons'] = $info->providerIcons; //All provider icons found in the page
-		$data['providerIcon'] = $info->providerIcon?$info->providerIcon:EA_DEFAULT_ICON; //The icon choosen as main icon
+		$data['providerIcon'] =
+			EA_FormImage(
+				($info->providerIcon?$info->providerIcon:$default['ico']),
+				'icon',
+				'height="30px" width="30px"'
+				); //The icon choosen as main icon
 
 		$data['content'] = EA_Readability($info->request->getContent(), $url); // The content as read by Readability
 		$data['raw_data_do_not_use_in_template'] = EA_LocalizePage($info->url, $info->request->getContent()); // Raw HTML prepped for thumbnail

@@ -21,7 +21,7 @@
 	</div><?php if(!isset($options['meta']) || (isset($options['meta'])&&$options['meta'])){ ?>
 	<div class="embed-meta panel">
 		<span class="embed-icon">
-			<img src="<?php echo $data['providerIcon']; ?>" height=30px width=30px/>
+			<?php echo $data['providerIcon']; ?>
 		</span>
 		<span class="embed-link">
 			<a href="<?php echo $data['url']; ?>" title="<?php echo $data['title']; ?>"><?php echo $data['title']; ?></a>

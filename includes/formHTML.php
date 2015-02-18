@@ -26,6 +26,7 @@ function EA_GetTemplate($url, $options){
 			if(isset($options['style'])){ $options['template'] = $options['style']; unset($options['style']);}
 			$options['template'] = isset($options['template'])? $options['template'] : EA_DEFAULT_TEMPLATE;
 			$theme = in_array($options['template'],$EA_TEMPLATES)?$options['template']:$EA_TEMPLATES[0];
+			unset($data['raw_data_do_not_use_in_template']);
 			ob_start();
 			include(EA_TEMPLATE_DIR."/$theme.php");
 			return ob_get_clean();
