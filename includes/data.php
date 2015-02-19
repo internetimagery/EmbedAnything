@@ -155,7 +155,8 @@ function EA_Request($url){
 
 		$data['content'] = EA_Readability($info->request->getContent(), $url); // The content as read by Readability
 		$data['raw_data_do_not_use_in_template'] = array(); // Data for working.
-		$data['raw_data_do_not_use_in_template']['html'] = EA_LocalizePage($info->url, $info->request->getContent()); // Raw HTML prepped for thumbnail
+		/* Changed $info->url to $url. This means the exact url is going to be used as base... */
+		$data['raw_data_do_not_use_in_template']['html'] = EA_LocalizePage($url, $info->request->getContent()); // Raw HTML prepped for thumbnail
 
 		global $wgExtensionAssetsPath;
 		$thumb_url = $wgExtensionAssetsPath.'/EmbedAnything/thumbnail.php?data='.urlencode($url);
