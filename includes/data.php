@@ -118,7 +118,14 @@ function EA_Request($url){
 	    	    'parameters' => array(),
 	    		'embedlyKey' => EA_EMBEDLY_KEY
 	    	)
-	    )
+	    ),
+		'resolver' => array(
+			'config' => array(
+//				CURLOPT_SSL_VERIFYPEER => true,
+//				CURLOPT_SSL_VERIFYHOST => 2,
+				CURLOPT_USERAGENT => 'Embed PHP Library',
+			)
+		)
 	);
 	$info = Embed\Embed::create($url, $config);
 	$data = array();
