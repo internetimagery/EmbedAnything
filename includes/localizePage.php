@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__.'/phpUri.php');
 function EA_LocalizePage($url, $html, $debug=false){
 	// enable user error handling
 	libxml_use_internal_errors(true);
@@ -24,9 +25,14 @@ function EA_LocalizePage($url, $html, $debug=false){
 				$url = substr($url, -1) == '/' ? substr($url, 0, -1) : $url;
 				foreach($imgs as $img){
 					$img_url = $img->getAttribute("src");
-					if(!preg_match("/^https?:\/\/.+/", $img_url)){
-						$img->setAttribute("src", "$url$img_url");
-					}
+					$img->setAttribute("src", phpUri::parse($url)->join($img_url));
+				}
+			}
+			// Nullify scripts
+			$scripts = $page->getElementsByTagName("script");
+			if($scripts->length){
+				foreach($scripts as $script){
+					$script->parentNode->removeChild($script);
 				}
 			}
 			// Wipe out links. This is not supposed to be a proxy!

@@ -15,6 +15,7 @@ function EA_LoadThumb(target){
 	var frame = document.createElement("iframe");
 	frame.setAttribute("style",'position: absolute;top:0px;left:4000px;width:1200px;height:800px;');
 	frame.setAttribute("id",'testing');
+	frame.setAttribute("sandbox",'allow-same-origin');
 	frame = wrapper.appendChild(frame);
 	frame.src = php+"&html=true"; //images original url
 	frame.onload = function (e){
