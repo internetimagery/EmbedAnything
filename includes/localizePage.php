@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/phpUri.php');
+//require_once(__DIR__.'/phpUri.php');
 function EA_LocalizePage($url, $html, $debug=false){
 	// enable user error handling
 	libxml_use_internal_errors(true);
@@ -25,7 +25,7 @@ function EA_LocalizePage($url, $html, $debug=false){
 				$url = substr($url, -1) == '/' ? substr($url, 0, -1) : $url;
 				foreach($imgs as $img){
 					$img_url = $img->getAttribute("src");
-					$img->setAttribute("src", phpUri::parse($url)->join($img_url));
+				//	$img->setAttribute("src", phpUri::parse($url)->join($img_url));
 				}
 			}
 			// Nullify scripts
