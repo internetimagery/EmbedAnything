@@ -29,10 +29,14 @@ function EA_LocalizePage($url, $html, $debug=false){
 				}
 			}
 			// Nullify scripts
+			$trash = array();
 			$scripts = $page->getElementsByTagName("script");
 			if($scripts->length){
 				foreach($scripts as $script){
-					$script->parentNode->removeChild($script);
+					$trash[] = $script;
+				}
+				foreach($trash as $del){
+					$del->parentNode->removeChild($del);
 				}
 			}
 			// Wipe out links. This is not supposed to be a proxy!

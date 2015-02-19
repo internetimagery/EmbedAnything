@@ -2,6 +2,7 @@
 // Function to deal with thunbnail things...
 require_once(__DIR__."/vendor/autoload.php");
 require_once(__DIR__.'/includes/data.php');
+require_once(__DIR__.'/includes/localizePage.php');
 
 if(isset($_GET['data']) && $_GET['data']){
 	$url = urldecode($_GET['data']);

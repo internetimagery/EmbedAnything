@@ -15,7 +15,7 @@ function EA_LoadThumb(target){
 	var frame = document.createElement("iframe");
 	frame.setAttribute("style",'position: absolute;top:0px;left:4000px;width:1200px;height:800px;');
 	frame.setAttribute("id",'testing');
-	frame.setAttribute("sandbox",'allow-same-origin');
+//	frame.setAttribute("sandbox",'allow-same-origin allow-scripts');
 	frame = wrapper.appendChild(frame);
 	frame.src = php+"&html=true"; //images original url
 	frame.onload = function (e){
@@ -45,8 +45,7 @@ function EA_loadImage(element, img, url){
             EA_cacheImage(img_data, url); // Send completed thumbnail
 			},
         "height": 800,
-        "background": "#fff"
-     //   "allowTaint" : true
+        "background": "#fff",
         });
 }
 
