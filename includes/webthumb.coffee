@@ -9,13 +9,12 @@ Create a screenshot of a webpage
 
 # Load up iframe stuff
 EA_LoadThumb = (target) ->
-	target.setAttribute "onerror", ""
-	php = target.src # Images intended target
-	target.src = "#{EA_ext_path()}/includes/loading.gif"
+	target.img.setAttribute "onerror", ""
+	target.img.src = "#{EA_ext_path()}/loading"
 	wrapper = document.createElement "div"
 	wrapper.setAttribute "overflow", "hidden"
 	wrapper.setAttribute "position", "relative"
-	wrapper = target.parentNode.appendChild wrapper
+	wrapper = target.img.parentNode.appendChild wrapper
 	frame = document.createElement "iframe"
 	frame.setAttribute "style", 'position: absolute;top:0px;left:4000px;width:1200px;height:800px;' #hide frame
 	frame.setAttribute "id",'testing'
@@ -24,14 +23,14 @@ EA_LoadThumb = (target) ->
 	frame.onload = (e) ->
 		iframeDocument = frame.contentDocument or frame.contentWindow.document
 		iframe_body = iframeDocument.getElementsByTagName('body')[0]
-		EA_loadImage iframe_body, target, php
+		EA_loadImage iframe_body, target.img, target.data
 
 
 #Load an image off the element, place it in location
 EA_loadImage = ( element, img, url ) ->
 	params =
 		"logging"	: true
-		"proxy"		: "#{EA_ext_path()}/includes/html2canvasproxy.php"
+		"proxy"		: "#{EA_ext_path()}/proxy"
 		"onrendered": ( canvas ) ->
 			img.onerror = ->
 				img.onerror = null
@@ -41,16 +40,16 @@ EA_loadImage = ( element, img, url ) ->
 					alert "Not loaded image from canvas.toDataURL"
 			img_data = canvas.toDataURL "image/png"
 			img.src = img_data
-			EA_cacheImage img_data, url # Send completed thumbnail
+			EA_cacheImage img_data # Send completed thumbnail
 		"height"	: 800
 		"background": "#fff"
 	html2canvas element, params
 
 # Save our computed image off for caching.
-EA_cacheImage = (data, url) ->
+EA_cacheImage = (data) ->
 	debug = false
 	params = 
-		url		: url
+		url		: "#{EA_ext_path()}/insert"
 		data	:
 			data	: encodeURIComponent data
 		type	: "POST"

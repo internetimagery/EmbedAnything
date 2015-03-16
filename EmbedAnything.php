@@ -20,6 +20,11 @@ $wgExtensionCredits['parserhook'][] = array(
 // Register i18n.
 $wgExtensionMessagesFiles['EmbedAnything'] = __DIR__ . '/EmbedAnything.i18n.php';
 
+// Register Special Page
+$wgAutoloadClasses['SpecialEmbedAnything'] = __DIR__ . '/SpecialEmbedAnything.php';
+#$wgExtensionMessagesFiles['EmbedAnythingAlias'] = __DIR__ . '/EmbedAnything.alias.php';
+$wgSpecialPages['EmbedAnything'] = 'SpecialEmbedAnything';
+
 // Register hooks.
 $wgHooks['ParserFirstCallInit'][] = 'EA_Setup'; #grab text from parser
 //$wgHooks['BeforePageDisplay'][] = 'EA_load_javascript';
@@ -27,9 +32,11 @@ $wgHooks['ParserFirstCallInit'][] = 'EA_Setup'; #grab text from parser
 $wgHooks['ParserBeforeTidy'][] = 'EA_Head_Js';
 
 function EA_Head_Js(&$parser, &$text){
-global $wgExtensionAssetsPath, $wgCanonicalServer;
+global $wgExtensionAssetsPath, $wgCanonicalServer, $wgArticlePath;
+
 $parser->mOutput->addHeadItem('
-<script>function EA_ext_path(){ return "'.$wgCanonicalServer.$wgExtensionAssetsPath.'/EmbedAnything"; }</script>
+<script>function EA_ext_path(){ return "'.str_replace("$1", "Special:EmbedAnything", ($wgCanonicalServer.$wgArticlePath))
+.'";}</script>
 <script src="'.$wgExtensionAssetsPath.'/EmbedAnything/includes/html2canvas.min.js" type="text/javascript"></script>
 <script src="'.$wgExtensionAssetsPath.'/EmbedAnything/includes/webthumb.min.js" type="text/javascript"></script>'
   );
