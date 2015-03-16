@@ -49,7 +49,7 @@ EA_loadImage = ( element, img, url ) ->
 EA_cacheImage = (data, url) ->
 	debug = false
 	params = 
-		url		: "#{EA_ext_path()}/insert"
+		url		: "#{EA_ext_path()}/insert?data=#{url}"
 		data	:
 			url		: url
 			data	: encodeURIComponent data

@@ -36,7 +36,11 @@ class SpecialEmbedAnything extends SpecialPage {
 				// Loading Image
 				case 'image':
 					if ($data = $this->quickData()) {
-						if($output = $data['raw_data_do_not_use_in_template']){
+						if(
+						isset($data['raw_data_do_not_use_in_template']) &&
+						($output = $data['raw_data_do_not_use_in_template']) &&
+						isset($output['thumb'])
+							){
 			        		header('Content-Type: image/png');
 			        		echo $output['thumb'];
 			        		break;
@@ -57,17 +61,18 @@ class SpecialEmbedAnything extends SpecialPage {
 				// Uploading Thumbnail
 				case 'insert':
 					if(
-						isset($_POST['data'])	&&
-						isset($_POST['url'])	&&
-					 	($img = $_POST['data']?urldecode($_POST['data']):'') &&
-					 	($url = $_POST['url'])){
-						global $POOL;
+					isset($_POST['data'])	&&
+					isset($_POST['url'])	&&
+					($img = $_POST['data']?urldecode($_POST['data']):'') &&
+					($url = $_POST['url'])	&&
+					($data = $this->quickData())){
 			    		// TODO add check to ensure upload is really an image.
 			    		// Prep image
 			    		$img = str_replace('data:image/png;base64,', '', $img);
 			    		$img = base64_decode($img);
 
 			    		// Save image to cache
+			    		global $POOL;
 			        	$item = $POOL->getItem(EA_formKey($url));
 			        	$item->lock();
 			        	$data['raw_data_do_not_use_in_template']['thumb'] = $img;
@@ -75,8 +80,9 @@ class SpecialEmbedAnything extends SpecialPage {
 			        	$item->set($data, EA_CACHE_TIME);
 			        	echo "Thumb Uploaded.";
 			        }
-					// Adding data here!
-					break;
+			        break;
+			    case 'test':
+			    	break;
 				default:
 					print "The address is invalid.";
 					break;
