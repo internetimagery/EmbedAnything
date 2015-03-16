@@ -19,7 +19,7 @@ EA_LoadThumb = (target) ->
 	frame.setAttribute "style", 'position: absolute;top:0px;left:4000px;width:1200px;height:800px;' #hide frame
 	frame.setAttribute "id",'testing'
 	frame = wrapper.appendChild frame
-	frame.src = "#{php}&html=true" # images original url
+	frame.src = "#{EA_ext_path()}/html?data=#{target.data}" # images original url
 	frame.onload = (e) ->
 		iframeDocument = frame.contentDocument or frame.contentWindow.document
 		iframe_body = iframeDocument.getElementsByTagName('body')[0]
@@ -40,17 +40,18 @@ EA_loadImage = ( element, img, url ) ->
 					alert "Not loaded image from canvas.toDataURL"
 			img_data = canvas.toDataURL "image/png"
 			img.src = img_data
-			EA_cacheImage img_data # Send completed thumbnail
+			EA_cacheImage img_data, url# Send completed thumbnail
 		"height"	: 800
 		"background": "#fff"
 	html2canvas element, params
 
 # Save our computed image off for caching.
-EA_cacheImage = (data) ->
+EA_cacheImage = (data, url) ->
 	debug = false
 	params = 
 		url		: "#{EA_ext_path()}/insert"
 		data	:
+			url		: url
 			data	: encodeURIComponent data
 		type	: "POST"
 		dataType: "html"

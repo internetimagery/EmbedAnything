@@ -33,6 +33,7 @@ class SpecialEmbedAnything extends SpecialPage {
 					EA_EmptyCache();
 					print "Cache flushed. :D";
 					break;
+				// Loading Image
 				case 'image':
 					if ($data = $this->quickData()) {
 						if($output = $data['raw_data_do_not_use_in_template']){
@@ -43,6 +44,7 @@ class SpecialEmbedAnything extends SpecialPage {
 					}
 					print "This isn't an image!";
 					break;
+				// Loading Page
 				case 'html':
 					if ($data = $this->quickData()) {
 						if($output = $data['raw_data_do_not_use_in_template']){
@@ -52,8 +54,14 @@ class SpecialEmbedAnything extends SpecialPage {
 						}
 					}
 					break;
+				// Uploading Thumbnail
 				case 'insert':
-					if(isset($_POST['data']) && $img = $_POST['data']?urldecode($_POST['data']):''){
+					if(
+						isset($_POST['data'])	&&
+						isset($_POST['url'])	&&
+					 	($img = $_POST['data']?urldecode($_POST['data']):'') &&
+					 	($url = $_POST['url'])){
+						global $POOL;
 			    		// TODO add check to ensure upload is really an image.
 			    		// Prep image
 			    		$img = str_replace('data:image/png;base64,', '', $img);
@@ -70,7 +78,7 @@ class SpecialEmbedAnything extends SpecialPage {
 					// Adding data here!
 					break;
 				default:
-					print "The address $request, is invalid.";
+					print "The address is invalid.";
 					break;
 			}
 		} else {

@@ -169,7 +169,7 @@ function EA_Request($url){
 		#$thumb_url = $wgExtensionAssetsPath.'/EmbedAnything/thumbnail.php?data='.urlencode($url);
 		$thumb_url = str_replace("$1", "Special:EmbedAnything/image", ($wgCanonicalServer.$wgArticlePath))."?data=".urlencode($url);
 
-		$data['thumb'] = EA_FormImage($thumb_url, 'web-thumb', 'onerror="EA_LoadThumb({img:this,data:"'.urlencode($url).'"});"');
+		$data['thumb'] = EA_FormImage($thumb_url, 'web-thumb', 'onerror="EA_LoadThumb({img:this,data:\''.urlencode($url).'\'});"');
 // Code to generate thumbnail.
 		return $data;
 	}
