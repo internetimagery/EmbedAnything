@@ -96,13 +96,62 @@ class SpecialEmbedAnything extends SpecialPage {
 						if(!$err = $this->Blacklist($request)){
 							$pieces = parse_url($request);
 							$home = $this->Resolve( $pieces['scheme']."://".$pieces['host'] ); #resolve homepage
-							if($data = EA_Request($request)){
+							if($data = EA_Embed($request)){
 								# Choose. Homepage or Regular Url?
-								if( $request == $home){
-									print("Homepage");
+								if( $request == $home ){
+									$page = $this->Sanitize($data['providerName']); // Page name (title)
+									$result = array( // Data values
+									    'Website[image]'		=> null,
+									    'Website[url]'			=> $data['url'],
+									    'Website[title]'		=> $this->Sanitize($data['title']),
+									    'Website[description]'	=> $this->Sanitize($data['description'])
+									);
+									$url = Title::newFromText( "Special:FormEdit" )->getLocalUrl()."/Website/Website:$page";
+									$wgOut->setPageTitle("Website Found");
+									$output->addHTML(EAP_Redirect($url, $result));
+									$output->addHTML(EAP_AutoSubmit());
 								} else {
-									print("Normal Url");
+									// Rename "TYPE" Possible types: video link rich photo audio image
+									switch($data['type']){
+									    case 'video':
+									    	$type = 'Video';
+									    	$duration = null;
+									    break;
+									    case 'photo':
+									    case 'image':
+									    	$type = 'Image';
+									    	$duration = null;
+									    break;
+									    case 'audio':
+									    	$type = 'Audio';
+									    	$duration = null;
+									    break;
+									    case 'rich':
+									    	$type = 'Multimedia';
+									    	$duration = null;
+									    break;
+									    default:
+									    	$type = 'Link';
+									    	$duration = round(str_word_count($data['content']) / 250); // Average reading speed, 250 words a minute
+									}
+									// Generated Inputs
+									$page = $this->Sanitize($data['title']); // Page name (title)
+									$result = array( // Data values
+									    'Reference[url]'		=> $data['url'],
+									    'Reference[caption]'	=> $this->Sanitize($data['description']),
+									    'Reference[author]'		=> $this->Sanitize($data['authorName']),
+									    'Reference[duration]'	=> $duration,
+									    'Reference[website]'	=> $this->Sanitize($data['providerName']),
+									    'Reference[type]'		=> $type,
+									    'Category[categories]'	=> $type
+									);
+
+									$url = Title::newFromText( "Special:FormEdit" )->getLocalUrl()."/Reference/Reference:$page";
+									$wgOut->setPageTitle("Page Found");
+									$output->addHTML(EAP_Redirect($url, $result));
+									$output->addHTML(EAP_AutoSubmit());
 								}
+								break;
 							} else {
 								$output->addHTML( EAP_Warning("
 									We're having trouble getting data from your link.<br>
@@ -113,25 +162,9 @@ class SpecialEmbedAnything extends SpecialPage {
 						}
 					} else {
 						$output->addHTML( EAP_Warning("
-							The Link is invalid. Can you load it in your browser?<br/>
+							The Link doesn't seem to work or is invalid. Can you load it in your browser?<br/>
 							Is it a normal page?") );
 					}
-					#
-					#$em_url = $this->URLAdd($request);
-					#$em_result = $this->URLTest($em_url); #Test url works
-					#if( !$err = $this->TestStatus($em_result['http_code']) ){
-					#
-					#
-					#
-					#
-					#	$output->addWikiText( "redirecting?" );
-					#	$url = Title::newFromText( "Special:EmbedAnything" )->getLocalUrl("");
-					#	#$wgOut->redirect(Title::newFromText( "Special:EmbedAnything" )->getLocalUrl(""));
-					#	$wgOut->setPageTitle("Content Found");
-					#	$output->addHTML( EAP_Redirect($url, array("one"=>"one","two"=>"two","three"=>"three")) );
-					#	break;
-
-					#$output->addHTML( $err ? EAP_Warning($err) : "");
 				} else {
 		    		$output->addHTML( EAP_Warning() );
 		    	}
