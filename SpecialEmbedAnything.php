@@ -78,19 +78,11 @@ class SpecialEmbedAnything extends SpecialPage {
 ###		        	echo "Thumb Uploaded.";
 ###		        }
 ###		        break;
-###		    case 'test':
-###		    	break;
-			case 'Test':
-				ob_start();
-				print_r($_POST);
-				$out = ob_get_clean();
-				$wgOut->addHTML("<pre>$out</pre>");
-				$output->addWikiText( "POST DATA ABOVE?" );
-				break;
 			case 'Submit':
 				include_once(__DIR__."/includes/pagedata.php");
 				if(isset($_POST['URL']) && $_POST['URL']){
-					#test URL
+					# Remove trailing slash
+					$_POST['URL'] = substr($_POST['URL'], -1, 1) == '/' ? substr($_POST['URL'], 0, -1) : $_POST['URL'];
 					if( $request = $this->Resolve($_POST['URL']) ){
 						#Do we allow the url?
 						if(!$err = $this->Blacklist($request)){
