@@ -165,11 +165,9 @@ function EA_Request($url){
 		/* Changed $info->url to $url. This means the exact url is going to be used as base... */
 		$data['raw_data_do_not_use_in_template']['html'] = EA_LocalizePage($url, $info->request->getContent()); // Raw HTML prepped for thumbnail
 
-		global $wgExtensionAssetsPath, $wgCanonicalServer, $wgArticlePath;
-		#$thumb_url = $wgExtensionAssetsPath.'/EmbedAnything/thumbnail.php?data='.urlencode($url);
-		$thumb_url = str_replace("$1", "Special:EmbedAnything/image", ($wgCanonicalServer.$wgArticlePath))."?data=".urlencode($url);
-
-		$data['thumb'] = EA_FormImage($thumb_url, 'web-thumb', 'onerror="EA_LoadThumb({img:this,data:\''.urlencode($url).'\'});"');
+		global $wgExtensionAssetsPath;
+		$thumb_url = $wgExtensionAssetsPath.'/EmbedAnything/thumbnail.php?data='.urlencode($url);
+		$data['thumb'] = EA_FormImage($thumb_url, 'web-thumb', 'onerror="EA_LoadThumb(this);"');
 // Code to generate thumbnail.
 		return $data;
 	}

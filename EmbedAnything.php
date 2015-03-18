@@ -35,8 +35,7 @@ function EA_Head_Js(&$parser, &$text){
 global $wgExtensionAssetsPath, $wgCanonicalServer, $wgArticlePath;
 
 $parser->mOutput->addHeadItem('
-<script>function EA_ext_path(){ return "'.str_replace("$1", "Special:EmbedAnything", ($wgCanonicalServer.$wgArticlePath))
-.'";}</script>
+<script>function EA_ext_path(){ return "'.$wgCanonicalServer.$wgExtensionAssetsPath.'/EmbedAnything"; }</script>
 <script src="'.$wgExtensionAssetsPath.'/EmbedAnything/includes/html2canvas.min.js" type="text/javascript"></script>
 <script src="'.$wgExtensionAssetsPath.'/EmbedAnything/includes/webthumb.min.js" type="text/javascript"></script>'
   );

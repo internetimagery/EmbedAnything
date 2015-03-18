@@ -26,10 +26,11 @@ class SpecialEmbedAnything extends SpecialPage {
 ###		    case 'Proxy':
 ###		    	require_once(__DIR__."/includes/html2canvasproxy.php");
 ###		    	break;
-###		    case 'Flush':
-###		    	EA_EmptyCache();
-###		    	print "Cache flushed. :D";
-###		    	break;
+		    case 'Flush':
+		    	EA_EmptyCache();
+		    	$wgOut->setPageTitle("Cache Flush");
+		    	$output->addWikiText( "Cache Flushed. :D" );
+		    	break;
 ###		    // Loading Image
 ###		    case 'Image':
 ###		    	if ($data = $this->quickData()) {
@@ -78,12 +79,14 @@ class SpecialEmbedAnything extends SpecialPage {
 ###		        	echo "Thumb Uploaded.";
 ###		        }
 ###		        break;
+###		    case 'test':
+###		    	break;
 			case 'Submit':
 				include_once(__DIR__."/includes/pagedata.php");
 				if(isset($_POST['URL']) && $_POST['URL']){
-					# Remove trailing slash
-					$_POST['URL'] = substr($_POST['URL'], -1, 1) == '/' ? substr($_POST['URL'], 0, -1) : $_POST['URL'];
-					if( $request = $this->Resolve($_POST['URL']) ){
+					#test URL
+					$request = substr($_POST['URL'], -1, 1) == '/' ? substr($_POST['URL'], 0, -1) : $_POST['URL'];
+					if( $request = $this->Resolve($request) ){
 						#Do we allow the url?
 						if(!$err = $this->Blacklist($request)){
 							$pieces = parse_url($request);
@@ -156,6 +159,7 @@ class SpecialEmbedAnything extends SpecialPage {
 						$output->addHTML( EAP_Warning("
 							The Link doesn't seem to work or is invalid. Can you load it in your browser?<br/>
 							Is it a normal page?") );
+						print_r($_POST);
 					}
 				} else {
 		    		$output->addHTML( EAP_Warning() );
