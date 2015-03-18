@@ -2,14 +2,9 @@
 ##############################################
 # Form to submit
 ##############################################
-function Submit(){
+function EAP_Submit($url){
 	ob_start();
 ?>
-<div class="row">
-	<div class="small-12 columns text-center">
-		<h1 class="title">SUBMIT YOUR LINK BELOW</h1>
-	</div>
-</div>
 <div class="row">
 	<div class="small-12 large-8 columns small-centered">
 		<div class="section_light">
@@ -22,7 +17,7 @@ Don't forget to be liberal with categories.</p>
 </div><br>
 <div class="row">
 	<div class="small-12 large-10 columns small-centered">
-		<form name="Link" class="middle" method="post" action="./Special:EmbedAnything/submit">
+		<form name="Link" class="middle" method="post" action="<?php echo $url ?>">
 		<div class="row collapse">
 			<div class="small-2 columns">
 				<span class="prefix"><i class="fa fa-files-o"></i> <i class="fa fa-hand-o-right"></i>
@@ -53,7 +48,10 @@ Don't forget to be liberal with categories.</p>
 return ob_get_clean();
 }
 
-function Warning($error=''){
+##############################################
+# WARNINGS
+##############################################
+function EAP_Warning($error=''){
 	ob_start();
 ?>
 <div class="row">
@@ -64,5 +62,56 @@ function Warning($error=''){
 		else{ echo 'Something is wrong with your URL. Check that it works and goes to a <strong>site</strong> or <strong>single article</strong>.<br>(search result pages for example are not single articles)'; } ?>
 <button href="#" tabindex="0" class="close" aria-label="Close Alert">&times;</button></div>
 </div></div><?php
+	return ob_get_clean();
+}
+
+##############################################
+# REDIRECTION
+##############################################
+function EAP_Redirect($url, $data){
+	ob_start();
+?>
+<div class="row">
+	<div class="small-6 columns small-centered">
+		<table class="table">
+		<?php foreach( $data as $key => $val){
+			$val = ( ($key == 'Reference[archive]') && $val ? str_word_count($val).' words.' : $val );
+			echo "<tr><td>$key</td><td>$val</td></tr>"; } ?>
+		</table>
+	</div>
+</div>
+<div class="row">
+	<div class="small-12">
+		<form name="test" method="post" action="<?php echo $url; ?>"><?php foreach( $data as $name => $val ){
+echo "<input name='$name' type='hidden' value='$val'>";
+}?>
+			<div class="row">
+				<div class="large-8 small-12 small-centered columns text-center">
+					<div class="section_dark">
+						<i class="fa fa-plane"></i><br/>Data gathered...<br>Moving to page creation or edit
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="large-3 small-12 columns small-centered">
+					<input type="submit" class="button success columns" value="Continue" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div><?php
+	return ob_get_clean();
+}
+
+##############################################
+# AUTOMATICALLY SUBMIT THE FORM
+##############################################
+function EAP_AutoSubmit(){
+	ob_start();
+?>
+<SCRIPT LANGUAGE="JavaScript"><!--
+	setTimeout('document.test.submit()',300);
+//--></SCRIPT><?php
 	return ob_get_clean();
 }
