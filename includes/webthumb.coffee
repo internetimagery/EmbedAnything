@@ -9,28 +9,29 @@ Create a screenshot of a webpage
 
 # Load up iframe stuff
 EA_LoadThumb = (target) ->
-	target.img.setAttribute "onerror", ""
-	target.img.src = "#{EA_ext_path()}/loading"
+	target.setAttribute "onerror", ""
+	php = target.src # Images intended target
+	target.src = "#{EA_ext_path()}/includes/loading.gif"
 	wrapper = document.createElement "div"
 	wrapper.setAttribute "overflow", "hidden"
 	wrapper.setAttribute "position", "relative"
-	wrapper = target.img.parentNode.appendChild wrapper
+	wrapper = target.parentNode.appendChild wrapper
 	frame = document.createElement "iframe"
 	frame.setAttribute "style", 'position: absolute;top:0px;left:4000px;width:1200px;height:800px;' #hide frame
 	frame.setAttribute "id",'testing'
 	frame = wrapper.appendChild frame
-	frame.src = "#{EA_ext_path()}/html?data=#{target.data}" # images original url
+	frame.src = "#{php}&html=true" # images original url
 	frame.onload = (e) ->
 		iframeDocument = frame.contentDocument or frame.contentWindow.document
 		iframe_body = iframeDocument.getElementsByTagName('body')[0]
-		EA_loadImage iframe_body, target.img, target.data
+		EA_loadImage iframe_body, target, php
 
 
 #Load an image off the element, place it in location
 EA_loadImage = ( element, img, url ) ->
 	params =
 		"logging"	: true
-		"proxy"		: "#{EA_ext_path()}/proxy"
+		"proxy"		: "#{EA_ext_path()}/includes/html2canvasproxy.php"
 		"onrendered": ( canvas ) ->
 			img.onerror = ->
 				img.onerror = null
@@ -40,7 +41,7 @@ EA_loadImage = ( element, img, url ) ->
 					alert "Not loaded image from canvas.toDataURL"
 			img_data = canvas.toDataURL "image/png"
 			img.src = img_data
-			EA_cacheImage img_data, url# Send completed thumbnail
+			EA_cacheImage img_data, url # Send completed thumbnail
 		"height"	: 800
 		"background": "#fff"
 	html2canvas element, params
@@ -49,9 +50,8 @@ EA_loadImage = ( element, img, url ) ->
 EA_cacheImage = (data, url) ->
 	debug = false
 	params = 
-		url		: "#{EA_ext_path()}/insert?data=#{url}"
+		url		: url
 		data	:
-			url		: url
 			data	: encodeURIComponent data
 		type	: "POST"
 		dataType: "html"

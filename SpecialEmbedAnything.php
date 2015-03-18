@@ -8,6 +8,7 @@ class SpecialEmbedAnything extends SpecialPage {
 		parent::__construct( "EmbedAnything" );
 	}
 
+	# Decide what to do.
 	function execute( $par ) {
 		global $wgOut;
 		$title = $wgOut->getTitle();
@@ -79,11 +80,23 @@ class SpecialEmbedAnything extends SpecialPage {
 ###		        break;
 ###		    case 'test':
 ###		    	break;
+			case 'submit':
+				include_once(__DIR__."/includes/pagedata.php");
+				if(isset($_POST['url']) && $_POST['url']){
+					break;
+				}
+				ob_start();
+				print_r($_POST);
+				$out = ob_get_clean();
+				$wgOut->addHTML("<pre>$out</pre>");
+		    	$output->addWikiText( "SUBMISSION" );
+		    # Default Page
 		    case 'EmbedAnything':
 		    default:
+		    	include_once(__DIR__."/includes/pagedata.php");
 		    	$wgOut->setPageTitle("Share a link");
-		    	#$wgOut->addHTML();
-		    	$output->addWikiText( "This is embedanything!!" );
+		    	$wgOut->addHTML(Submit());
+		    	$output->addWikiText( "" );
 			}
 		}
 ###	function quickData(){
